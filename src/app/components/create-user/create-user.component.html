@@ -1,0 +1,198 @@
+<div class="container tb-10">
+  <form (ngSubmit)="submit()" [formGroup]="multistep">
+
+    <div *ngIf="stepNew === 1">
+
+      <div class="row">
+        <div class="col-md-4">
+          <h4 class="text-success">Step 1 - Main info</h4>
+        </div>
+
+        <div class=" col-md-8 form-row">
+
+          <div class="form-group col-md-10">
+            <label>First Name</label>
+            <input type="text" class="form-control" name="firstName" formControlName="firstName">
+            <div *ngIf="getControl['firstName'].touched && getControl['firstName'].invalid" class="text-danger">
+              <div *ngIf="getControl['firstName'].errors?.required">First Name is required.</div>
+              <div *ngIf="getControl['firstName'].errors?.minlength">Minimum 3 character are required.</div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-10">
+            <label>Last Name</label>
+            <input type="text" class="form-control" name="lastName" formControlName="lastName">
+            <div *ngIf="getControl['lastName'].touched && getControl['lastName'].invalid" class="text-danger">
+              <div *ngIf="getControl['lastName'].errors?.required">Last Name is required.</div>
+              <div *ngIf="getControl['lastName'].errors?.minlength">Minimum 4 character are required.</div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-10">
+            <label>User Name</label>
+            <input type="text" class="form-control" name="userName" formControlName="userName">
+            <div *ngIf="getControl['userName'].touched && getControl['userName'].invalid" class="text-danger">
+              <div *ngIf="getControl['userName'].errors?.required">User Name is required.</div>
+              <div *ngIf="getControl['userName'].errors?.minlength">Minimum 5 character are required.</div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-10">
+            <label>Phone number</label>
+            <input type="number" class="form-control" name="phone" formControlName="phone">
+            <div *ngIf="getControl['phone'].touched && getControl['phone'].invalid" class="text-danger">
+              <div *ngIf="getControl['phone'].errors?.required">Phone number is required.</div>
+              <div *ngIf="getControl['phone'].errors?.pattern">Phone number is required.</div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-10">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" formControlName="email">
+            <div *ngIf="getControl['email'].touched && getControl['email'].invalid" class="text-danger">
+              <div *ngIf="getControl['email'].errors?.required">Email is required.</div>
+              <div *ngIf="getControl['email'].errors?.email">Email must include @</div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-5">
+            <label>Password</label>
+            <input type="text" class="form-control" name="password" formControlName="password">
+            <div *ngIf="getControl['password'].touched && getControl['password'].invalid" class="text-danger">
+              <div *ngIf="getControl['password'].errors?.required">Password is required.</div>
+            </div>
+
+          </div>
+
+          <div class="form-group col-md-5">
+            <label>Password check</label>
+            <input type="text" class="form-control" name="passwordCheck" formControlName="confirmPassword">
+            <div *ngIf="getControl['confirmPassword'].touched && getControl['confirmPassword'].invalid"
+                 class="text-danger">
+              <div *ngIf="getControl['confirmPassword'].errors?.required">Confirm password</div>
+              <div *ngIf="getControl['confirmPassword'].errors?.mustMatch">Confirm password</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div *ngIf="stepNew === 2">
+
+      <div class="row">
+        <div class="col-md-4">
+          <h4 class="text-success">Step 2 - Address information</h4>
+        </div>
+        <!--    Wrap Group      -->
+
+        <div class=" col-md-8 form-row" formArrayName="addressGroup">
+
+          <div class="form-address row" *ngFor="let address of contactFormGroup.controls; let i = index"
+               [formGroupName]="i">
+
+            <!-- Contacts Form controls Here -->
+
+            <div class="form-group col-md-10">
+              <label for="inputState">Address type</label>
+              <select id="inputState" class="form-control custom-select" name="addressTypes"
+                      formControlName="addressTypes">
+                <option value="">Address types ...</option>
+                <option>Billing Address</option>
+                <option>Shipment Address</option>
+                <option>Home Address</option>
+              </select>
+
+              <span class="text-danger"
+                    *ngIf="getContactsFormGroup(i).controls['addressTypes'].touched && getContactsFormGroup(i).controls['addressTypes'].hasError('required')">
+                      Address type is required!
+              </span>
+            </div>
+
+            <div class="form-group col-md-10">
+              <label>Address</label>
+              <input type="text" class="form-control" name="address" formControlName="address">
+
+              <span class="text-danger"
+                    *ngIf="getContactsFormGroup(i).controls['address'].touched && getContactsFormGroup(i).controls['address'].hasError('required')">
+                      Address is required!
+              </span>
+            </div>
+
+            <div class="form-group col-md-5">
+              <label>City</label>
+              <input type="text" class="form-control" name="city" formControlName="city">
+              <span class="text-danger"
+                    *ngIf="getContactsFormGroup(i).controls['city'].touched && getContactsFormGroup(i).controls['city'].hasError('required')">
+                      City is required!
+              </span>
+            </div>
+
+            <div class="form-group col-md-5">
+              <label for="inputState1">State</label>
+              <select id="inputState1" class="form-control" name="country" formControlName="country">
+                <option value="">Chose...</option>
+                <option>Italy</option>
+                <option>Mexico</option>
+                <option>United Kingdom</option>
+                <option>Austria</option>
+                <option>Brazil</option>
+                <option>Canada</option>
+              </select>
+              <span class="text-danger"
+                    *ngIf="getContactsFormGroup(i).controls['country'].touched && getContactsFormGroup(i).controls['country'].hasError('required')">
+                      State is required!
+              </span>
+            </div>
+
+            <div class="form-group col-md-10">
+              <label>Postal code</label>
+              <input type="number" class="form-control" name="code" formControlName="code">
+              <span class="text-danger"
+                    *ngIf="getContactsFormGroup(i).controls['code'].touched && getContactsFormGroup(i).controls['code'].hasError('required')">
+                      Postal code is required!
+                    </span>
+            </div>
+
+            <div class="form-group col-md-10 text-right">
+              <button class="btn btn-warning" type="button" (click)="removeContact(i)"> Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-10 text-center">
+          <button class="btn btn-light m-1" type="button" (click)="addContact()">Add Address</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="stepNew === 3">
+
+      <div>Lorem ipsum dolor sit amet, consectetur.</div>
+
+      <!--      <div>-->
+      <!--        <ul *ngFor="let data of data">-->
+      <!--          <li>{{data.}}</li>-->
+      <!--          <li></li>-->
+      <!--          <li></li>-->
+      <!--          <li></li>-->
+      <!--          <li></li>-->
+      <!--        </ul>-->
+      <!--      </div>-->
+
+    </div>
+
+    <div class="my-5 col-md-12 text-right">
+      <a class="btn btn-danger mx-2" *ngIf="stepNew !==3" (click)="reset()">Reset</a>
+      <a class="btn btn-secondary mx-2" *ngIf="stepNew !== 1" (click)="previous()">Previous</a>
+      <a class="btn btn-primary mx-2" *ngIf="stepNew !== 3" (click)="next()">Next</a>
+      <!--      [disabled]="!multistep.valid"-->
+      <button type="submit" class="btn btn-success mx-2" *ngIf="stepNew === 3" [disabled]="!multistep.valid">Submit</button>
+    </div>
+    <br>
+    <pre class="mt-5">{{multistep.value | json}}</pre>
+  </form>
+</div>
+

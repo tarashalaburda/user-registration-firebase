@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="mb-5 text-center">Registration</h3>
+                                            <!--      *ngIf="!isSignedIn"-->
+      <form [formGroup]="form" (ngSubmit)="submit()" >
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" #emailSignup name="email" formControlName="email">
+          <div *ngIf="getControl['email'].touched && getControl['email'].invalid" class="text-danger">
+            <div *ngIf="getControl['email'].errors?.required">Email is required.</div>
+            <div *ngIf="getControl['email'].errors?.email">Email must include @ </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" #passwordSignup name="password" formControlName="password">
+          <div *ngIf="getControl['password'].touched && getControl['password'].invalid" class="text-danger">
+            <div *ngIf="getControl['password'].errors?.required">Password is required.</div>
+            <div *ngIf="getControl['password'].errors?.minlength">password must be greater than 4</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" (click)="onSignup(emailSignup.value, passwordSignup.value)">Sign up</button>
+        <button type="submit" class="btn btn-info ml-5" (click)="btnClick()">Sign In</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+

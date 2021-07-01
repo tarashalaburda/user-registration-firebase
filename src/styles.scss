@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a:active,
+a:hover,
+a:focus,
+a {
+  text-decoration: none;
+}
+.wrap {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background: #abdbe3;
+}
+.main {
+  flex-grow: 1;
+  background: #eeeee4;
+}
+.footer {
+  flex-shrink: 0;
+  background: #BABCCA;
+  min-height: 50px;
+}
+
+.main-wrap {
+  padding: 20px 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.active {
+  color: indianred;
+  font-weight: bold;
+}
+
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}
